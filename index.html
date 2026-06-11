@@ -756,7 +756,7 @@ const PROJECT_AASAAN_LOGO = "https://wondermayank.github.io/logo.png";
 //  ⚠️  REPLACE THIS with your deployed Google Apps Script URL
 //  Deploy → New Deployment → Web App → Anyone
 // ════════════════════════════════════════════════════════════════
-const APPS_URL = 'https://script.google.com/macros/s/AKfycbw-IJSbmHPbbnisINoco8XECop8y1ztgcU_s0aucS-ubDxOPnPN25V5Gp7IAv-kbAnR/exec';
+const APPS_URL = 'https://script.google.com/macros/s/AKfycbyIRy9S8OKF3UusoNkJ8sp5jHxjRsCN8cWx3q4GCxNoMTjSamS6OmuvBr7lmXSSY-Ro/exec';
 
 // ════════════════════════════════════════════════════════════════
 //  ⚠️  This is your Vercel proxy — update if your domain differs
@@ -1144,7 +1144,7 @@ function sendToBackend(url,data,keys){
   });
 
   const payload={
-    type:'scores',responseSheetUrl:url,
+    type:'scores',responseSheetUrl:url,sourceUrl:url,
     meta:{...meta,testTime,shift:testTime},
     subjectwiseAnalytics:buildBreakdown(data),
     questions:questions
