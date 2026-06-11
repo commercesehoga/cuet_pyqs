@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>CUET UG 2026 — Score Calculator · Wondermayank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/png" href="https://wondermayank.github.io/logo.svg">
+<link rel="icon" type="image/png" href="https://wondermayank.github.io/logo.png">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -294,7 +294,7 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 }
 
 /* ── College Finder ─────────────────────────────── */
-#collegeFinder{display:none;margin-top:60px}
+#collegeFinder{display:block;margin-top:60px;animation:fadeUp .5s ease both}
 #collegeFinder.show{display:block;animation:fadeUp .5s ease both}
 .cf-hero{background:linear-gradient(135deg,#0f5f38 0%,#1a7a4a 55%,#1d8f54 100%);border-radius:var(--radius);padding:32px 28px 28px;margin-bottom:28px;position:relative;overflow:hidden}
 .cf-hero::before{content:'🎓';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:72px;opacity:.18;pointer-events:none}
@@ -343,6 +343,92 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 .cf-empty{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:14px}
 .cf-disclaimer{margin-top:16px;padding:14px 16px;background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:var(--radius-sm);font-size:12px;color:#7a4c0a;line-height:1.6}
 @media(max-width:600px){.cf-scores-band{grid-template-columns:repeat(2,1fr)}.cf-course-grid{grid-template-columns:1fr 1fr}.cf-hero-title{font-size:20px}.cf-hero::before{font-size:50px}}
+
+/* ══ CUET College Predictor ══════════════════════ */
+#cuetPredictor{margin-top:60px;animation:fadeUp .5s .1s ease both}
+.cp-hero{background:linear-gradient(135deg,#1a3a6b 0%,#1e4d8c 55%,#2460a8 100%);border-radius:var(--radius);padding:32px 28px 28px;margin-bottom:28px;position:relative;overflow:hidden}
+.cp-hero::before{content:'🎓';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:72px;opacity:.15;pointer-events:none}
+.cp-hero-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.cp-hero-title{font-family:var(--font-display);font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.cp-hero-sub{font-size:14px;color:rgba(255,255,255,.72);line-height:1.55;max-width:560px}
+.cp-form-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+.cp-form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+@media(max-width:700px){.cp-form-grid{grid-template-columns:1fr}}
+.cp-field{}
+.cp-label{display:block;font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:8px}
+.cp-label-hint{font-weight:500;color:var(--text-muted);font-size:12px}
+.cp-input{width:100%;background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:13px 16px;color:var(--text-main);outline:none;transition:all .18s;font-size:18px;font-weight:700;font-family:var(--font-mono);min-height:var(--touch-min)}
+.cp-input:focus{border-color:#1e4d8c;box-shadow:0 0 0 4px rgba(30,77,140,.12)}
+.cp-score-bar-wrap{height:4px;background:var(--surface-2);border-radius:4px;margin-top:10px;overflow:hidden}
+.cp-score-bar{height:100%;width:0%;background:linear-gradient(90deg,#1e4d8c,#2460a8);border-radius:4px;transition:width .4s ease}
+.cp-select{width:100%;min-height:var(--touch-min)}
+.cp-cat-grid{display:flex;flex-wrap:wrap;gap:7px}
+.cp-cat-btn{padding:9px 16px;border-radius:30px;font-size:12px;font-weight:700;border:1.5px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:all .18s;min-height:38px}
+.cp-cat-btn.active{border-color:#1e4d8c;background:#1e4d8c;color:#fff;box-shadow:0 3px 10px rgba(30,77,140,.25)}
+.cp-predict-btn{width:100%;min-height:56px;background:linear-gradient(135deg,#1a3a6b 0%,#1e4d8c 60%,#2460a8 100%);border-radius:var(--radius);color:#fff;font-size:16px;font-weight:700;box-shadow:0 6px 20px rgba(30,77,140,.3),inset 0 1px 0 rgba(255,255,255,.12);transition:all .2s;border:none;letter-spacing:-.1px;font-family:var(--font-display);cursor:pointer}
+.cp-predict-btn:hover:not(:disabled){box-shadow:0 10px 26px rgba(30,77,140,.4);transform:translateY(-1px)}
+.cp-predict-btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.cp-score-guide{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+@media(max-width:700px){.cp-score-guide{grid-template-columns:repeat(2,1fr)}}
+.cp-guide-cell{border-radius:var(--radius-sm);padding:14px 12px;text-align:center;border:1.5px solid transparent}
+.cp-guide-cell.excellent{background:#e8f5ee;border-color:#b5e6c8}
+.cp-guide-cell.verygood{background:#eef7e8;border-color:#c2dfb5}
+.cp-guide-cell.good{background:#fef5e4;border-color:#f5d89a}
+.cp-guide-cell.moderate{background:#fff3e0;border-color:#f5c880}
+.cp-guide-cell.limited{background:#fdeaea;border-color:#f5b8b8}
+.cp-guide-range{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--text-main);margin-bottom:4px}
+.cp-guide-lbl{font-size:12px;font-weight:700;margin-bottom:3px}
+.cp-guide-cell.excellent .cp-guide-lbl{color:#0d6636}
+.cp-guide-cell.verygood .cp-guide-lbl{color:#2a7d0a}
+.cp-guide-cell.good .cp-guide-lbl{color:#7a4c0a}
+.cp-guide-cell.moderate .cp-guide-lbl{color:#a04010}
+.cp-guide-cell.limited .cp-guide-lbl{color:#a02828}
+.cp-guide-desc{font-size:10px;color:var(--text-muted);line-height:1.4}
+/* Results */
+#cpResults{margin-bottom:24px}
+.cp-results-hero{background:linear-gradient(135deg,#0f5f38 0%,#1a7a4a 60%,#20a360 100%);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;color:#fff}
+.cp-results-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px}
+.cp-results-score{font-family:var(--font);font-size:56px;font-weight:800;line-height:1;margin-bottom:4px;letter-spacing:-2px}
+.cp-results-meta{font-size:13px;color:rgba(255,255,255,.72);font-weight:500}
+.cp-tier-section{margin-bottom:20px}
+.cp-tier-heading{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.cp-tier-heading::after{content:'';flex:1;height:1px;background:var(--border)}
+.cp-tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cp-uni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.cp-uni-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:var(--shadow-xs);transition:box-shadow .18s,transform .18s;position:relative;overflow:hidden}
+.cp-uni-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.cp-uni-card.safe{border-left:4px solid var(--success)}
+.cp-uni-card.moderate{border-left:4px solid var(--warning)}
+.cp-uni-card.reach{border-left:4px solid var(--danger)}
+.cp-uni-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.cp-uni-name{font-size:14px;font-weight:700;color:var(--text-main);line-height:1.3}
+.cp-uni-type{font-size:11px;font-weight:500;color:var(--text-muted);margin-top:2px}
+.cp-uni-badge{font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;white-space:nowrap}
+.cp-uni-badge.safe{background:var(--success-bg);color:#0d6636;border:1px solid var(--success-border)}
+.cp-uni-badge.moderate{background:var(--warning-bg);color:#7a4c0a;border:1px solid var(--warning-border)}
+.cp-uni-badge.reach{background:var(--danger-bg);color:#a02828;border:1px solid var(--danger-border)}
+.cp-uni-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:10px;border-top:1px solid var(--border)}
+.cp-uni-stat{text-align:center}
+.cp-uni-stat-lbl{font-size:9px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
+.cp-uni-stat-val{font-family:var(--font);font-size:14px;font-weight:800;color:var(--text-main)}
+.cp-uni-stat-val.blue{color:#1e4d8c}
+.cp-uni-popular{font-size:11px;color:var(--text-muted);margin-top:10px;padding-top:8px;border-top:1px dashed var(--border);line-height:1.5}
+.cp-empty{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:14px;background:var(--surface-2);border-radius:var(--radius);border:1.5px dashed var(--border)}
+/* Info tables */
+.cp-info-section{margin-bottom:28px}
+.cp-table-wrap{overflow-x:auto;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);box-shadow:var(--shadow-xs)}
+.cp-table{width:100%;border-collapse:collapse;min-width:480px}
+.cp-table th,.cp-table td{padding:13px 16px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
+.cp-table th{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;background:var(--surface-2);letter-spacing:.8px;white-space:nowrap}
+.cp-table tr:last-child td{border-bottom:none}
+.cp-table tr:hover td{background:var(--surface-2)}
+.cp-chance{display:inline-flex;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.cp-chance.excellent{background:#e8f5ee;color:#0d6636}
+.cp-chance.verygood{background:#eef7e8;color:#2a7d0a}
+.cp-chance.good{background:var(--warning-bg);color:#7a4c0a}
+.cp-chance.moderate{background:#fff3e0;color:#a04010}
+.cp-chance.limited{background:var(--danger-bg);color:#a02828}
+.cp-chance.reach{background:var(--neutral-bg);color:var(--neutral)}
 </style>
 </head>
 <body>
@@ -350,7 +436,7 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 <div class="nav-wrapper">
   <nav class="nav">
     <div class="brand">
-      <img src="https://wondermayank.github.io/logo.svg" class="brand-logo" alt="Wondermayank">
+      <img src="https://wondermayank.github.io/logo.png" class="brand-logo" alt="Wondermayank">
       <div class="brand-text">
         <span class="brand-name">Wondermayank</span>
         <span class="brand-sub">Analysis Engine</span>
@@ -447,6 +533,124 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
     </div>
     <div class="cf-results" id="cfResults"></div>
     <div class="cf-disclaimer">⚠️ Cutoff data is based on CUET UG 2024 &amp; 2025 official closing ranks/scores. Actual 2026 cutoffs may vary. This tool is for guidance only — always verify with the official university counselling portal.</div>
+
+  </section>
+
+  <!-- ══ FULL CUET COLLEGE PREDICTOR ══ -->
+  <section id="cuetPredictor">
+    <div class="cp-hero">
+      <div class="cp-hero-tag">✦ Built-in · CUET UG 2026</div>
+      <div class="cp-hero-title">CUET College Predictor</div>
+      <div class="cp-hero-sub">Enter your CUET score, category, and course preference to predict your admission chances across 200+ participating universities.</div>
+    </div>
+
+    <!-- Input Form -->
+    <div class="cp-form-card">
+      <div class="cp-form-grid">
+        <div class="cp-field">
+          <label class="cp-label">Your Total CUET Score <span class="cp-label-hint" id="cpScoreHint">(out of 500)</span></label>
+          <input id="cpScore" type="number" min="0" max="500" placeholder="e.g. 340" class="cp-input" oninput="cpValidate()">
+          <div class="cp-score-bar-wrap"><div class="cp-score-bar" id="cpScoreBar"></div></div>
+          <div id="cpTotalLine" style="margin-top:8px;font-size:12px;font-weight:600;color:var(--primary)"></div>
+        </div>
+        <div class="cp-field">
+          <label class="cp-label">Number of Subjects</label>
+          <div class="cp-cat-grid" id="cpSubjGrid">
+            <button class="cp-cat-btn" data-subj="1" onclick="cpSelectSubj(this)">1</button>
+            <button class="cp-cat-btn active" data-subj="2" onclick="cpSelectSubj(this)">2</button>
+            <button class="cp-cat-btn" data-subj="3" onclick="cpSelectSubj(this)">3</button>
+            <button class="cp-cat-btn" data-subj="4" onclick="cpSelectSubj(this)">4</button>
+            <button class="cp-cat-btn" data-subj="5" onclick="cpSelectSubj(this)">5</button>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">Score range: <strong>0 – <span id="cpMaxTotal">500</span></strong> marks</div>
+        </div>
+        <div class="cp-field">
+          <label class="cp-label">Reservation Category</label>
+          <div class="cp-cat-grid" id="cpCatGrid">
+            <button class="cp-cat-btn active" data-cat="General" onclick="cpSelectCat(this)">General</button>
+            <button class="cp-cat-btn" data-cat="OBC" onclick="cpSelectCat(this)">OBC NCL</button>
+            <button class="cp-cat-btn" data-cat="SC" onclick="cpSelectCat(this)">SC</button>
+            <button class="cp-cat-btn" data-cat="ST" onclick="cpSelectCat(this)">ST</button>
+            <button class="cp-cat-btn" data-cat="EWS" onclick="cpSelectCat(this)">EWS</button>
+          </div>
+        </div>
+      </div>
+      <div class="cp-form-grid" style="margin-top:16px">
+        <div class="cp-field" style="grid-column:1/-1">
+          <label class="cp-label">Course / Program</label>
+          <select id="cpCourse" class="cp-select lb-sel" onchange="cpValidate()">
+            <option value="">Select Course</option>
+            <option>B.A. (Hons)</option>
+            <option>B.Com (Hons)</option>
+            <option>B.Sc (Hons)</option>
+            <option>B.Sc (Maths)</option>
+            <option>B.Sc (Bio)</option>
+            <option>BBA / BMS</option>
+            <option>BCA</option>
+            <option>B.Ed</option>
+            <option>B.Pharm</option>
+            <option>B.Sc (Agriculture)</option>
+            <option>B.Sc (Nursing)</option>
+            <option>B.Voc</option>
+            <option>Integrated M.A.</option>
+            <option>Integrated M.Sc.</option>
+          </select>
+        </div>
+      </div>
+      <button class="cp-predict-btn" id="cpPredictBtn" onclick="runCUETPredictor()" disabled>
+        <span>🎯 Predict My Colleges</span>
+      </button>
+    </div>
+
+    <!-- Score Guide Strip (per subject, out of 250) -->
+    <div class="cp-score-guide">
+      <div class="cp-guide-cell excellent"><div class="cp-guide-range">210 – 250</div><div class="cp-guide-lbl">Excellent</div><div class="cp-guide-desc">DU Top Colleges, JNU</div></div>
+      <div class="cp-guide-cell verygood"><div class="cp-guide-range">180 – 209</div><div class="cp-guide-lbl">Very Good</div><div class="cp-guide-desc">DU Mid, BHU, JMI</div></div>
+      <div class="cp-guide-cell good"><div class="cp-guide-range">150 – 179</div><div class="cp-guide-lbl">Good</div><div class="cp-guide-desc">BHU, Hyderabad, CUK</div></div>
+      <div class="cp-guide-cell moderate"><div class="cp-guide-range">120 – 149</div><div class="cp-guide-lbl">Moderate</div><div class="cp-guide-desc">CU Gujarat, Rajasthan</div></div>
+      <div class="cp-guide-cell limited"><div class="cp-guide-range">Below 120</div><div class="cp-guide-lbl">Limited</div><div class="cp-guide-desc">Assam, NEHU, Private</div></div>
+    </div>
+
+    <!-- Results -->
+    <div id="cpResults"></div>
+
+    <!-- Marks vs Percentile Table -->
+    <div class="cp-info-section">
+      <div class="section-heading">CUET Score vs Admission Chances</div>
+      <div class="cp-table-wrap">
+        <table class="cp-table">
+          <thead><tr><th>Score/Subject (Out of 250)</th><th>Total (2 subj)</th><th>Likely Colleges</th><th>Admission Chances</th></tr></thead>
+          <tbody>
+            <tr><td>210 – 250</td><td>420 – 500</td><td>SRCC, Hindu, Stephens, JNU Top Programs</td><td><span class="cp-chance excellent">Excellent</span></td></tr>
+            <tr><td>180 – 209</td><td>360 – 418</td><td>DU mid-tier, BHU Top Programs, JMI</td><td><span class="cp-chance verygood">Very Good</span></td></tr>
+            <tr><td>150 – 179</td><td>300 – 358</td><td>BHU General, Hyderabad University, CUK</td><td><span class="cp-chance good">Good</span></td></tr>
+            <tr><td>120 – 149</td><td>240 – 298</td><td>CU Gujarat, Rajasthan, HNBGU</td><td><span class="cp-chance moderate">Moderate</span></td></tr>
+            <tr><td>90 – 119</td><td>180 – 238</td><td>Assam University, NEHU, Regional CUs</td><td><span class="cp-chance limited">Limited</span></td></tr>
+            <tr><td>Below 90</td><td>Below 180</td><td>Private CUET-partnered universities</td><td><span class="cp-chance reach">Very Limited</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Category-wise Rank Ranges -->
+    <div class="cp-info-section">
+      <div class="section-heading">CUET Colleges Based on Rank (Category-Wise)</div>
+      <div class="cp-table-wrap">
+        <table class="cp-table">
+          <thead><tr><th>University</th><th>General</th><th>OBC</th><th>SC</th><th>ST</th><th>EWS</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Delhi University</strong></td><td>1 – 1,500</td><td>1,500 – 4,000</td><td>4,000 – 8,000</td><td>8,000 – 12,000</td><td>2,000 – 5,000</td></tr>
+            <tr><td><strong>BHU</strong></td><td>1 – 4,000</td><td>4,000 – 10,000</td><td>10,000 – 18,000</td><td>18,000 – 25,000</td><td>5,000 – 12,000</td></tr>
+            <tr><td><strong>JNU</strong></td><td>1 – 6,000</td><td>6,000 – 15,000</td><td>15,000 – 25,000</td><td>25,000 – 35,000</td><td>8,000 – 18,000</td></tr>
+            <tr><td><strong>Univ. of Hyderabad</strong></td><td>1 – 10,000</td><td>10,000 – 20,000</td><td>20,000 – 30,000</td><td>30,000 – 40,000</td><td>12,000 – 22,000</td></tr>
+            <tr><td><strong>CU Rajasthan</strong></td><td>10,000 – 20,000</td><td>20,000 – 35,000</td><td>35,000 – 50,000</td><td>50,000 – 65,000</td><td>22,000 – 35,000</td></tr>
+            <tr><td><strong>Assam University</strong></td><td>30,000 – 45,000</td><td>45,000 – 65,000</td><td>65,000 – 90,000</td><td>90,000 – 1,10,000</td><td>40,000 – 65,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cf-disclaimer">⚠️ Predictions are based on CUET UG 2024 &amp; 2025 cutoff data and may vary by ±10%. Actual 2026 cutoffs depend on seat matrix, number of applicants, and normalisation. Always verify with official university counselling portals.</div>
   </section>
 
 </div>
@@ -546,7 +750,7 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 </div>
 
 <script>
-const PROJECT_AASAAN_LOGO = "https://wondermayank.github.io/logo.svg";
+const PROJECT_AASAAN_LOGO = "https://wondermayank.github.io/logo.png";
 
 // ════════════════════════════════════════════════════════════════
 //  ⚠️  REPLACE THIS with your deployed Google Apps Script URL
@@ -1209,6 +1413,243 @@ function selectCourse(course, btn) {
       </div>
     </div>
     <div class="cf-college-list">${cards}</div>`;
+}
+
+/* ══════════════════════════════════════════════════
+   CUET COLLEGE PREDICTOR — Full Built-in Engine
+   ══════════════════════════════════════════════════ */
+
+let cpCategory = 'General';
+let cpSubjects = 2;
+
+function cpSelectCat(btn) {
+  document.querySelectorAll('#cpCatGrid .cp-cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  cpCategory = btn.dataset.cat;
+  cpValidate();
+}
+
+function cpSelectSubj(btn) {
+  document.querySelectorAll('#cpSubjGrid .cp-cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  cpSubjects = parseInt(btn.dataset.subj);
+  const maxTotal = cpSubjects * 250;
+  document.getElementById('cpMaxTotal').textContent = maxTotal;
+  document.getElementById('cpScoreHint').textContent = '(out of ' + maxTotal + ')';
+  const inp = document.getElementById('cpScore');
+  inp.max = maxTotal;
+  inp.placeholder = 'e.g. ' + Math.round(maxTotal * 0.68);
+  cpValidate();
+}
+
+function cpValidate() {
+  const score = parseInt(document.getElementById('cpScore').value) || 0;
+  const course = document.getElementById('cpCourse').value;
+  const maxTotal = cpSubjects * 250;
+  const btn = document.getElementById('cpPredictBtn');
+  btn.disabled = !(score > 0 && score <= maxTotal && course);
+  // Update score bar
+  const pct = Math.min(Math.max(score / maxTotal * 100, 0), 100);
+  document.getElementById('cpScoreBar').style.width = pct + '%';
+  // Show per-subject breakdown
+  const totalLine = document.getElementById('cpTotalLine');
+  if (score > 0 && score <= maxTotal) {
+    const perSubj = (score / cpSubjects).toFixed(1);
+    totalLine.textContent = `≈ ${perSubj} per subject across ${cpSubjects} subject${cpSubjects>1?'s':''}`;
+  } else {
+    totalLine.textContent = '';
+  }
+}
+
+// Full university data: [name, type, city, minScore{cat}, popularCourses, nirf]
+const CP_UNI_DATA = [
+  {
+    name: 'University of Delhi (DU)', type: 'Central University', city: 'New Delhi', nirf: '15',
+    cutoff: { General: 750, OBC: 700, SC: 650, ST: 600, EWS: 720 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'B.Sc (Hons)', 'B.Sc (Maths)', 'B.Sc (Bio)'],
+    popular: 'B.Com (H), B.A. Eco (H), Pol Sci (H), B.Sc (H) Maths',
+    fee: '₹10,000 – ₹20,000/yr'
+  },
+  {
+    name: 'Jawaharlal Nehru University (JNU)', type: 'Central University', city: 'New Delhi', nirf: '10',
+    cutoff: { General: 190, OBC: 170, SC: 155, ST: 135, EWS: 180 },
+    courses: ['B.A. (Hons)', 'Integrated M.A.', 'Integrated M.Sc.'],
+    popular: 'B.A. (H) Pol Science, IR, Economics, Foreign Languages',
+    fee: '₹3,000 – ₹12,000/yr'
+  },
+  {
+    name: 'Banaras Hindu University (BHU)', type: 'Central University', city: 'Varanasi', nirf: '11',
+    cutoff: { General: 190, OBC: 170, SC: 155, ST: 135, EWS: 180 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'B.Sc (Hons)', 'B.Sc (Maths)', 'B.Sc (Bio)', 'BBA / BMS'],
+    popular: 'B.Sc. Maths, B.Sc. Bio, B.Com (H), B.A. (H) Social Science',
+    fee: '₹3,500 – ₹6,000/yr'
+  },
+  {
+    name: 'Jamia Millia Islamia (JMI)', type: 'Central University', city: 'New Delhi', nirf: '13',
+    cutoff: { General: 180, OBC: 162, SC: 148, ST: 132, EWS: 170 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'BBA / BMS', 'BCA', 'B.Ed'],
+    popular: 'B.Com, BBA, B.A. Sociology, Psychology, Mass Comm',
+    fee: '₹8,000 – ₹12,000/yr'
+  },
+  {
+    name: 'University of Hyderabad (UoH)', type: 'Central University', city: 'Hyderabad', nirf: '25',
+    cutoff: { General: 170, OBC: 155, SC: 140, ST: 125, EWS: 160 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'Integrated M.A.', 'Integrated M.Sc.'],
+    popular: 'Integrated M.A. (Econ, Sociology), M.Sc. (Maths, Bio)',
+    fee: '₹12,000 – ₹15,000/yr'
+  },
+  {
+    name: 'Aligarh Muslim University (AMU)', type: 'Central University', city: 'Aligarh', nirf: '16',
+    cutoff: { General: 165, OBC: 150, SC: 138, ST: 122, EWS: 158 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'B.Sc (Hons)', 'BBA / BMS'],
+    popular: 'B.Com, B.A., B.Sc. (various streams)',
+    fee: '₹5,000 – ₹10,000/yr'
+  },
+  {
+    name: 'Central University of Rajasthan (CURAJ)', type: 'Central University', city: 'Ajmer', nirf: '—',
+    cutoff: { General: 148, OBC: 132, SC: 120, ST: 105, EWS: 140 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'BBA / BMS', 'B.Sc (Agriculture)', 'B.Voc'],
+    popular: 'BBA, Integrated Science, Social Work, B.Sc.',
+    fee: '₹6,000 – ₹12,000/yr'
+  },
+  {
+    name: 'Central University of Gujarat (CUG)', type: 'Central University', city: 'Gandhinagar', nirf: '—',
+    cutoff: { General: 142, OBC: 128, SC: 115, ST: 100, EWS: 135 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'Integrated M.A.'],
+    popular: 'B.A. (H) Humanities, B.Sc. General, Language Studies',
+    fee: '₹5,000 – ₹9,000/yr'
+  },
+  {
+    name: 'Tezpur University', type: 'Central University', city: 'Tezpur, Assam', nirf: '101',
+    cutoff: { General: 132, OBC: 118, SC: 105, ST: 92, EWS: 123 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'BCA', 'BBA / BMS'],
+    popular: 'B.Sc., B.A. Mass Communication, Social Work',
+    fee: '₹12,000 – ₹20,000/yr'
+  },
+  {
+    name: 'Assam University', type: 'Central University', city: 'Silchar, Assam', nirf: '—',
+    cutoff: { General: 120, OBC: 108, SC: 95, ST: 82, EWS: 113 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'B.Sc (Hons)', 'B.Voc'],
+    popular: 'B.A., B.Sc., B.Com General, Regional subjects',
+    fee: '₹4,000 – ₹8,000/yr'
+  },
+  {
+    name: 'NEHU (North-Eastern Hill University)', type: 'Central University', city: 'Shillong', nirf: '—',
+    cutoff: { General: 110, OBC: 98, SC: 85, ST: 72, EWS: 103 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'B.Voc'],
+    popular: 'B.A. General, Science, Cultural Studies, Tribal Studies',
+    fee: '₹3,000 – ₹6,000/yr'
+  },
+  {
+    name: 'Visva-Bharati University', type: 'Central University', city: 'Birbhum, WB', nirf: '151',
+    cutoff: { General: 125, OBC: 113, SC: 100, ST: 88, EWS: 118 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'B.Ed'],
+    popular: 'B.A. (H) Bengali, Music, Fine Arts',
+    fee: '₹3,000 – ₹7,000/yr'
+  },
+  {
+    name: 'Hemwati Nandan Bahuguna Garhwal University (HNBGU)', type: 'Central University', city: 'Srinagar, Uttarakhand', nirf: '—',
+    cutoff: { General: 132, OBC: 118, SC: 105, ST: 92, EWS: 123 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'B.Com (Hons)', 'B.Sc (Agriculture)'],
+    popular: 'B.Sc., B.A., B.Com General and Honours programs',
+    fee: '₹4,000 – ₹8,000/yr'
+  },
+  {
+    name: 'Central University of Kerala (CUK)', type: 'Central University', city: 'Kasaragod', nirf: '—',
+    cutoff: { General: 148, OBC: 132, SC: 120, ST: 105, EWS: 140 },
+    courses: ['B.A. (Hons)', 'B.Sc (Hons)', 'Integrated M.A.'],
+    popular: 'B.A. (H) Economics, Sociology, English, Languages',
+    fee: '₹5,000 – ₹10,000/yr'
+  },
+  {
+    name: 'Babasaheb Bhimrao Ambedkar University (BBAU)', type: 'Central University', city: 'Lucknow', nirf: '—',
+    cutoff: { General: 138, OBC: 123, SC: 110, ST: 97, EWS: 128 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'B.Sc (Hons)', 'BCA', 'BBA / BMS'],
+    popular: 'B.Com, B.A. (H) Social Science, B.Sc. IT',
+    fee: '₹5,000 – ₹10,000/yr'
+  },
+  {
+    name: 'Galgotias University', type: 'Private University', city: 'Greater Noida', nirf: '—',
+    cutoff: { General: 88, OBC: 75, SC: 62, ST: 50, EWS: 80 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'BBA / BMS', 'BCA', 'B.Ed'],
+    popular: 'BBA, BCA, B.Com, B.A. (various streams)',
+    fee: '₹50,000 – ₹1,20,000/yr'
+  },
+  {
+    name: 'IIMT University', type: 'Private University', city: 'Meerut', nirf: '—',
+    cutoff: { General: 75, OBC: 62, SC: 50, ST: 38, EWS: 70 },
+    courses: ['B.A. (Hons)', 'B.Com (Hons)', 'BBA / BMS', 'BCA', 'B.Pharm', 'B.Sc (Nursing)'],
+    popular: 'BBA, BCA, B.Pharm, B.Sc Nursing, B.Com',
+    fee: '₹40,000 – ₹90,000/yr'
+  },
+];
+
+function runCUETPredictor() {
+  const totalScore = parseInt(document.getElementById('cpScore').value) || 0;
+  const course = document.getElementById('cpCourse').value;
+  const cat = cpCategory;
+  const maxTotal = cpSubjects * 250;
+  const scorePerSubj = totalScore / cpSubjects; // effective per-subject score
+  const resultsEl = document.getElementById('cpResults');
+
+  // Tier logic — scale per-subject cutoff to total based on number of subjects
+  const safe = [], moderate = [], reach = [];
+  CP_UNI_DATA.forEach(uni => {
+    if (!uni.courses.includes(course)) return;
+    const cutPerSubj = uni.cutoff[cat] || uni.cutoff['General'];
+    const cutTotal = cutPerSubj * cpSubjects; // scale cutoff to total
+    const margin = totalScore - cutTotal;
+    const threshold = cpSubjects * 8;
+    if (margin >= threshold) safe.push({ ...uni, cutPerSubj, cutTotal, margin });
+    else if (margin >= -threshold) moderate.push({ ...uni, cutPerSubj, cutTotal, margin });
+    else reach.push({ ...uni, cutPerSubj, cutTotal, margin });
+  });
+
+  if (!safe.length && !moderate.length && !reach.length) {
+    resultsEl.innerHTML = `<div class="cp-empty">No data found for <strong>${course}</strong>. Try a different course or adjust your score.</div>`;
+    return;
+  }
+
+  let chanceLabel = scorePerSubj >= 210 ? 'Excellent' : scorePerSubj >= 180 ? 'Very Good' : scorePerSubj >= 150 ? 'Good' : scorePerSubj >= 120 ? 'Moderate' : 'Limited';
+
+  function renderCards(arr, cls) {
+    return arr.map(u => `
+      <div class="cp-uni-card ${cls}">
+        <div class="cp-uni-top">
+          <div>
+            <div class="cp-uni-name">${esc(u.name)}</div>
+            <div class="cp-uni-type">${esc(u.type)} · ${esc(u.city)}</div>
+          </div>
+          <div class="cp-uni-badge ${cls}">${cls === 'safe' ? '✓ Safe' : cls === 'moderate' ? '~ Moderate' : '✗ Reach'}</div>
+        </div>
+        <div class="cp-uni-stats">
+          <div class="cp-uni-stat"><div class="cp-uni-stat-lbl">Your Score</div><div class="cp-uni-stat-val blue">${totalScore}<span style="font-size:10px;font-weight:500">/${maxTotal}</span></div></div>
+          <div class="cp-uni-stat"><div class="cp-uni-stat-lbl">Min. Cutoff</div><div class="cp-uni-stat-val">${u.cutTotal}<span style="font-size:10px;font-weight:500">/${maxTotal}</span></div></div>
+          <div class="cp-uni-stat"><div class="cp-uni-stat-lbl">Fees (Yr 1)</div><div class="cp-uni-stat-val" style="font-size:11px;font-weight:700">${u.fee}</div></div>
+        </div>
+        <div class="cp-uni-popular">📚 ${esc(u.popular)}</div>
+      </div>`).join('');
+  }
+
+  function tierBlock(arr, cls, label, dotColor) {
+    if (!arr.length) return '';
+    return `<div class="cp-tier-section">
+      <div class="cp-tier-heading"><div class="cp-tier-dot" style="background:${dotColor}"></div>${label} (${arr.length})</div>
+      <div class="cp-uni-grid">${renderCards(arr, cls)}</div>
+    </div>`;
+  }
+
+  resultsEl.innerHTML = `
+    <div class="cp-results-hero">
+      <div class="cp-results-label">Your Prediction — ${esc(course)} · ${esc(cat)} · ${cpSubjects} Subject${cpSubjects>1?'s':''}</div>
+      <div class="cp-results-score">${totalScore}<span style="font-size:22px;font-weight:500;opacity:.65"> / ${maxTotal}</span></div>
+      <div class="cp-results-meta">≈ ${scorePerSubj.toFixed(1)}/250 per subject &nbsp;·&nbsp; Chances: <strong>${chanceLabel}</strong> &nbsp;·&nbsp; ${safe.length} Safe · ${moderate.length} Moderate · ${reach.length} Reach</div>
+    </div>
+    ${tierBlock(safe, 'safe', 'Safe Colleges', 'var(--success)')}
+    ${tierBlock(moderate, 'moderate', 'Moderate Colleges (near cutoff)', 'var(--warning)')}
+    ${tierBlock(reach, 'reach', 'Reach Colleges', 'var(--danger)')}
+  `;
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 </script>
