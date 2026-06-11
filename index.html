@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>CUET UG 2026 — Score Calculator · Wondermayank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/png" href="https://wondermayank.github.io/logo.png">
+<link rel="icon" type="image/png" href="https://wondermayank.github.io/logo.svg">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -292,6 +292,57 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
   .score-overview{grid-template-columns:repeat(2,1fr)}
   .ov-card-main .ov-num{font-size:48px}
 }
+
+/* ── College Finder ─────────────────────────────── */
+#collegeFinder{display:none;margin-top:60px}
+#collegeFinder.show{display:block;animation:fadeUp .5s ease both}
+.cf-hero{background:linear-gradient(135deg,#0f5f38 0%,#1a7a4a 55%,#1d8f54 100%);border-radius:var(--radius);padding:32px 28px 28px;margin-bottom:28px;position:relative;overflow:hidden}
+.cf-hero::before{content:'🎓';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:72px;opacity:.18;pointer-events:none}
+.cf-hero-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.cf-hero-title{font-family:var(--font-display);font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.cf-hero-sub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.55}
+.cf-scores-band{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:28px}
+.cf-score-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px 14px;box-shadow:var(--shadow-xs);position:relative;overflow:hidden;transition:border-color .18s,box-shadow .18s}
+.cf-score-chip:hover{border-color:var(--primary);box-shadow:var(--shadow-sm)}
+.cf-score-chip::after{content:'';position:absolute;bottom:0;left:0;height:3px;width:var(--pct,0%);background:linear-gradient(90deg,var(--primary),var(--success));transition:width .8s .1s ease}
+.cf-chip-subj{font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-chip-score{font-family:var(--font);font-size:26px;font-weight:800;color:var(--text-main);line-height:1;letter-spacing:-1px}
+.cf-chip-score span{font-size:12px;font-weight:500;color:var(--text-light);letter-spacing:0}
+.cf-chip-pct{font-size:11px;font-weight:600;margin-top:5px}
+.cf-chip-pct.good{color:var(--success)}.cf-chip-pct.avg{color:var(--warning)}.cf-chip-pct.low{color:var(--danger)}
+.cf-selector{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow-xs)}
+.cf-selector-title{font-size:14px;font-weight:700;color:var(--text-main);margin-bottom:14px}
+.cf-course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:16px}
+.cf-course-btn{padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:all .18s;text-align:left;line-height:1.3}
+.cf-course-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.cf-course-btn.active{border-color:var(--primary);background:var(--primary);color:#fff;box-shadow:0 3px 10px rgba(26,122,74,.25)}
+.cf-results{margin-top:4px}
+.cf-results-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cf-results-title{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--text-main);letter-spacing:-.3px}
+.cf-legend{display:flex;gap:10px;flex-wrap:wrap}
+.cf-leg{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-muted)}
+.cf-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cf-college-list{display:grid;grid-template-columns:1fr;gap:10px}
+.cf-college-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:var(--shadow-xs);transition:box-shadow .18s,transform .18s,border-color .18s;position:relative;overflow:hidden}
+.cf-college-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+.cf-college-card.safe{border-left:4px solid var(--success)}
+.cf-college-card.moderate{border-left:4px solid var(--warning)}
+.cf-college-card.reach{border-left:4px solid var(--danger)}
+.cf-college-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.cf-college-name{font-size:15px;font-weight:700;color:var(--text-main);line-height:1.3}
+.cf-college-loc{font-size:12px;font-weight:500;color:var(--text-muted);margin-top:2px}
+.cf-chance-badge{font-size:10px;font-weight:800;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;white-space:nowrap}
+.cf-chance-badge.safe{background:var(--success-bg);color:#0d6636;border:1px solid var(--success-border)}
+.cf-chance-badge.moderate{background:var(--warning-bg);color:#7a4c0a;border:1px solid var(--warning-border)}
+.cf-chance-badge.reach{background:var(--danger-bg);color:#a02828;border:1px solid var(--danger-border)}
+.cf-cutoffs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:10px;border-top:1px solid var(--border)}
+.cf-co{text-align:center}
+.cf-co-lbl{font-size:9px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.cf-co-val{font-family:var(--font);font-size:16px;font-weight:800;color:var(--text-main)}
+.cf-co-val.your{color:var(--primary)}
+.cf-empty{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:14px}
+.cf-disclaimer{margin-top:16px;padding:14px 16px;background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:var(--radius-sm);font-size:12px;color:#7a4c0a;line-height:1.6}
+@media(max-width:600px){.cf-scores-band{grid-template-columns:repeat(2,1fr)}.cf-course-grid{grid-template-columns:1fr 1fr}.cf-hero-title{font-size:20px}.cf-hero::before{font-size:50px}}
 </style>
 </head>
 <body>
@@ -299,7 +350,7 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 <div class="nav-wrapper">
   <nav class="nav">
     <div class="brand">
-      <img src="https://wondermayank.github.io/logo.png" class="brand-logo" alt="Wondermayank">
+      <img src="https://wondermayank.github.io/logo.svg" class="brand-logo" alt="Wondermayank">
       <div class="brand-text">
         <span class="brand-name">Wondermayank</span>
         <span class="brand-sub">Analysis Engine</span>
@@ -375,10 +426,29 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
     <div class="result-actions">
       <button class="btn btn-ghost btn-lg" onclick="downloadResultPDF()">↓ Download Result PDF</button>
       <button class="btn btn-primary btn-lg" onclick="openScoreCardOverlay()">📝 View Scorecard</button>
+      <button class="btn btn-gold btn-lg" onclick="initCollegeFinder()">🎓 Find Colleges</button>
     </div>
     <div class="section-heading">Subject Breakdown</div>
     <div id="panels"></div>
   </section>
+
+  <!-- COLLEGE FINDER -->
+  <section id="collegeFinder">
+    <div class="cf-hero">
+      <div class="cf-hero-tag">✦ New Feature · Based on CUET 2024 &amp; 2025 Data</div>
+      <div class="cf-hero-title">College Finder</div>
+      <div class="cf-hero-sub">See which colleges you can get based on your scores. Select a course to view cutoffs from last 2 years.</div>
+    </div>
+    <div class="section-heading">Your Scores (out of 250 per subject)</div>
+    <div class="cf-scores-band" id="cfScoresBand"></div>
+    <div class="cf-selector">
+      <div class="cf-selector-title">Select a Course to find matching colleges →</div>
+      <div class="cf-course-grid" id="cfCourseGrid"></div>
+    </div>
+    <div class="cf-results" id="cfResults"></div>
+    <div class="cf-disclaimer">⚠️ Cutoff data is based on CUET UG 2024 &amp; 2025 official closing ranks/scores. Actual 2026 cutoffs may vary. This tool is for guidance only — always verify with the official university counselling portal.</div>
+  </section>
+
 </div>
 
 <!-- SCORECARD OVERLAY -->
@@ -476,13 +546,13 @@ select.lb-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.
 </div>
 
 <script>
-const PROJECT_AASAAN_LOGO = "https://wondermayank.github.io/logo.png";
+const PROJECT_AASAAN_LOGO = "https://wondermayank.github.io/logo.svg";
 
 // ════════════════════════════════════════════════════════════════
 //  ⚠️  REPLACE THIS with your deployed Google Apps Script URL
 //  Deploy → New Deployment → Web App → Anyone
 // ════════════════════════════════════════════════════════════════
-const APPS_URL = 'https://script.google.com/macros/s/AKfycbxCceJgphvZ2wC5el1i_kWCF7tw4KLAb7GX1cuv5gd7ROT95WAmBi6ZEG24xGvBd245/exec';
+const APPS_URL = 'https://script.google.com/macros/s/AKfycbw-IJSbmHPbbnisINoco8XECop8y1ztgcU_s0aucS-ubDxOPnPN25V5Gp7IAv-kbAnR/exec';
 
 // ════════════════════════════════════════════════════════════════
 //  ⚠️  This is your Vercel proxy — update if your domain differs
@@ -728,7 +798,7 @@ async function runAnalysis(){
   try{
     const data=processSubjects(keys);
     sendToBackend(url,data,keys);
-    missingApproved=false;btn.textContent='Calculate Again →';
+    missingApproved=false;btn.textContent='Calculate Again →';setTimeout(initCollegeFinder,300);
     setStatus('fetchStatus',`Calculated: ${selected.join(', ')}.`,'success');
     setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
   }catch(e){setStatus('fetchStatus',e.message,'error');btn.textContent='Calculate My Score →';}
@@ -845,10 +915,35 @@ function resolveTestTime(){return meta.testTime||meta.examTime||meta.shift||'Unk
 
 function sendToBackend(url,data,keys){
   const testTime=resolveTestTime();
+  const examDate=resolveDate();
+  const year=examDate?examDate.split('-')[2]:(new Date().getFullYear());
+
+  // Build flat question list: one entry per question across all subjects
+  const questions=[];
+  Object.entries(data).forEach(([subj,arr])=>{
+    arr.forEach(item=>{
+      if(!item.id)return;
+      questions.push({
+        questionId:    item.id,
+        subject:       subj,
+        examDate:      examDate,
+        shift:         testTime,
+        correctAnswer: item.official||'--',
+        chosenAnswer:  item.chosenNum||'--',
+        chosenId:      item.chosenId||'--',
+        result:        item.result,
+        isDrop:        item.result==='dropped',
+        year:          year,
+        source:        'calculator'
+      });
+    });
+  });
+
   const payload={
     type:'scores',responseSheetUrl:url,
     meta:{...meta,testTime,shift:testTime},
-    subjectwiseAnalytics:buildBreakdown(data)
+    subjectwiseAnalytics:buildBreakdown(data),
+    questions:questions
   };
   fetch(APPS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(()=>{});
 }
@@ -860,14 +955,274 @@ function initPdfHelpers(pdf){return{drawBox:(x,y,w,h,fillCol,borderCol,radius=2)
 function downloadResultPDF(){const{jsPDF}=window.jspdf;if(!jsPDF){alert('PDF library not loaded.');return;}const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const h=initPdfHelpers(pdf);let y=52;const W=210;const M=15;h.drawHeader('OFFICIAL RESULT REPORT','CUET UG 2026');h.drawBox(M,y,W-(M*2),30,pdfColors.surface,pdfColors.border,3);h.t((meta.name||'Candidate').toUpperCase(),M+8,y+10,14,pdfColors.textMain,'left',true);h.t(`Application No: ${meta.appNo||'—'}`,M+8,y+18,9,pdfColors.textMuted);h.t(`Roll No: ${meta.rollNo||'—'}`,M+65,y+18,9,pdfColors.textMuted);h.t(`Exam Date: ${meta.date||'—'}`,M+8,y+24,9,pdfColors.textMuted);h.t(`Test Time: ${meta.testTime||meta.shift||'—'}`,M+65,y+24,9,pdfColors.textMuted);y+=38;let total=0,c=0,w=0,sk=0,dr=0;Object.values(calculatedData).forEach(arr=>{arr.forEach(item=>{total+=getMarks(item.result);if(item.result==='correct')c++;else if(item.result==='wrong')w++;else if(item.result==='skipped')sk++;else if(item.result==='dropped')dr++;});});const attempted=c+w;const accuracy=attempted>0?((c/attempted)*100).toFixed(1):'0.0';h.drawBox(M,y,W-(M*2),40,pdfColors.white,pdfColors.border,3);h.t('TOTAL AGGREGATE SCORE',W/2,y+10,8,pdfColors.textMuted,'center',true);h.t(`${total>=0?'+':''}${total}`,W/2,y+24,32,total>=0?pdfColors.success:pdfColors.danger,'center',true);h.t('Marking: +5 Correct | -1 Wrong | +5 Dropped | 0 Skipped',W/2,y+33,8,pdfColors.textLight,'center');y+=44;const stats=[{l:'CORRECT',v:c,col:pdfColors.success},{l:'WRONG',v:w,col:pdfColors.danger},{l:'SKIPPED',v:sk,col:pdfColors.textMuted},{l:'DROPPED',v:dr,col:pdfColors.warning},{l:'ACCURACY',v:accuracy+'%',col:pdfColors.primary}];const sW=(W-(M*2)-16)/5;stats.forEach((s,i)=>{const x=M+(i*(sW+4));h.drawBox(x,y,sW,20,pdfColors.surface,pdfColors.border,2);h.t(s.l,x+sW/2,y+7,7,pdfColors.textMuted,'center',true);h.t(String(s.v),x+sW/2,y+15,12,s.col,'center',true);});y+=30;h.t('SUBJECT PERFORMANCE SUMMARY',M,y,10,pdfColors.primary,'left',true);y+=6;const subjData=buildBreakdown(calculatedData);h.drawBox(M,y,W-(M*2),8,pdfColors.surface,pdfColors.border,0);const cols=[M+4,M+60,M+85,M+105,M+125,M+145];['SUBJECT','SCORE','CORRECT','WRONG','DROPPED','SKIPPED'].forEach((hTxt,i)=>{h.t(hTxt,cols[i],y+5.5,7,pdfColors.textMain,'left',true);});h.t('ACCURACY',195,y+5.5,7,pdfColors.textMain,'right',true);y+=8;subjData.forEach((s,i)=>{h.drawBox(M,y,W-(M*2),9,i%2===0?pdfColors.white:pdfColors.surface,pdfColors.border,0);const acc2=s.correct+s.wrong>0?((s.correct/(s.correct+s.wrong))*100).toFixed(0)+'%':'—';h.t(s.subjectName.substring(0,26),cols[0],y+6,8,pdfColors.textMain);h.t(`${s.score>=0?'+':''}${s.score}`,cols[1],y+6,9,s.score>=0?pdfColors.success:pdfColors.danger,'left',true);h.t(String(s.correct),cols[2],y+6,8,pdfColors.success);h.t(String(s.wrong),cols[3],y+6,8,pdfColors.danger);h.t(String(s.dropped),cols[4],y+6,8,pdfColors.warning);h.t(String(s.skipped),cols[5],y+6,8,pdfColors.textMuted);h.t(acc2,195,y+6,8,pdfColors.primary,'right',true);y+=9;});y+=10;pdf.addPage();y=52;h.drawHeader('DETAILED QUESTION ANALYSIS','CUET UG 2026');Object.entries(calculatedData).forEach(([subject,arr])=>{if(y>240){pdf.addPage();y=52;h.drawHeader('DETAILED QUESTION ANALYSIS','CUET UG 2026');}const sc=arr.reduce((s,x)=>s+getMarks(x.result),0);h.drawBox(M,y,W-(M*2),12,pdfColors.primaryBg,pdfColors.primary,2);h.t(subject.substring(0,50).toUpperCase(),M+4,y+8,10,pdfColors.primary,'left',true);h.t(`SCORE: ${sc>=0?'+':''}${sc}`,W-M-4,y+8,10,sc>=0?pdfColors.success:pdfColors.danger,'right',true);y+=16;if(y>260){pdf.addPage();y=52;h.drawHeader('DETAILED QUESTION ANALYSIS','CUET UG 2026');}h.drawBox(M,y,W-(M*2),8,pdfColors.surface,pdfColors.border,0);const qcols=[M+3,M+18,M+55,M+95,M+140];['Q.NO','QUESTION ID','MARKED OPTION','OFFICIAL KEY','STATUS'].forEach((hTxt,i)=>{h.t(hTxt,qcols[i],y+5.5,7,pdfColors.textMain,'left',true);});h.t('MARKS',195,y+5.5,7,pdfColors.textMain,'right',true);y+=8;arr.forEach((item,qi)=>{if(y>270){pdf.addPage();y=52;h.drawHeader('DETAILED QUESTION ANALYSIS','CUET UG 2026');}const marks=getMarks(item.result);const rc=item.result==='correct'?pdfColors.success:item.result==='wrong'?pdfColors.danger:item.result==='dropped'?pdfColors.warning:pdfColors.textMuted;h.drawBox(M,y,W-(M*2),8,qi%2===0?pdfColors.white:pdfColors.surface,pdfColors.border,0);h.t(String(qi+1),qcols[0]+2,y+5.5,7,pdfColors.textMain);h.t(item.id||'—',qcols[1],y+5.5,7,pdfColors.textMuted);h.t(item.chosenNum||'--',qcols[2],y+5.5,7,pdfColors.textMain);h.t(String(item.official||'--').substring(0,18),qcols[3],y+5.5,7,pdfColors.primary);h.t(item.result.toUpperCase(),qcols[4],y+5.5,7,rc,'left',true);const mStr=marks>0?`+${marks}`:String(marks);h.t(mStr,195,y+5.5,8,rc,'right',true);y+=8;});y+=12;});const totalPages=pdf.internal.getNumberOfPages();for(let i=1;i<=totalPages;i++){pdf.setPage(i);h.drawFooter(i,totalPages);}pdf.save(`CUET_Result_${sanitize(meta.appNo||'Candidate')}.pdf`);}
 
 function downloadScoreCardPDF(){const{jsPDF}=window.jspdf;if(!jsPDF){alert('PDF library not loaded.');return;}if(!lastScoreCard){alert('Fetch your score card first.');return;}const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});const h=initPdfHelpers(pdf);let y=52;const W=210;const M=15;const TW=180;const appNo=document.getElementById('lookupApp')?.value||'—';const rows=lastScoreCard.subjects||[];const total=rows.reduce((s,x)=>s+Number(x.score||0),0);h.drawHeader('OFFICIAL SCORECARD & RANKING','CUET UG 2026');h.drawBox(M,y,TW,34,pdfColors.white,pdfColors.border,4);h.t((lastScoreCard.name||'Candidate').toUpperCase(),M+10,y+12,16,pdfColors.textMain,'left',true);h.t(`Application No: ${appNo}`,M+10,y+22,10,pdfColors.textMuted);h.t(`Roll No: ${lastScoreCard.rollNo||meta.rollNo||'—'}`,M+80,y+22,10,pdfColors.textMuted);y+=42;h.drawBox(M,y,TW,46,pdfColors.surface,pdfColors.border,4);h.t('TOTAL OBTAINED MARKS',W/2,y+12,9,pdfColors.textMuted,'center',true);h.t(`${total>=0?'+':''}${total}`,W/2,y+32,44,total>=0?pdfColors.success:pdfColors.danger,'center',true);h.t('Sum of all calculated subjects',W/2,y+40,8,pdfColors.textLight,'center');y+=54;const rankCards=[{l:'BEST RANK',v:lastScoreCard.bestRank||'—',col:pdfColors.primary},{l:'BEST PERCENTILE',v:lastScoreCard.bestPercentile||'—',col:pdfColors.primary},{l:'TOTAL SUBJECTS',v:rows.length,col:pdfColors.textMain}];const rW=(TW-10)/3;rankCards.forEach((rc,i)=>{const x=M+(i*(rW+5));h.drawBox(x,y,rW,26,pdfColors.white,pdfColors.border,3);h.t(rc.l,x+rW/2,y+10,8,pdfColors.textMuted,'center',true);h.t(String(rc.v),x+rW/2,y+20,16,rc.col,'center',true);});y+=36;h.t('EXAMINATION SCORES',M,y,10,pdfColors.primary,'left',true);y+=8;const totalPages=pdf.internal.getNumberOfPages();for(let i=1;i<=totalPages;i++){pdf.setPage(i);h.drawFooter(i,totalPages);}pdf.save(`CUET_ScoreCard_${sanitize(appNo)}.pdf`);}
+
+// ══════════════════════════════════════════════════
+//  COLLEGE FINDER
+// ══════════════════════════════════════════════════
+
+// ── CUET cutoff data (2024 & 2025, General category)
+// Scores are out of 250 per subject. Colleges keyed by course.
+// cutoff24 / cutoff25 = closing score of last admitted candidate
+const CF_DATA = {
+  "B.A. (Hons.) English": [
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:235,cutoff25:238},
+    {name:"Lady Shri Ram College",loc:"Delhi University, South Campus",cutoff24:232,cutoff25:235},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:220,cutoff25:224},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:230},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:210,cutoff25:215},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:205,cutoff25:210},
+    {name:"Jesus & Mary College",loc:"Delhi University, South Campus",cutoff24:215,cutoff25:218},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:195,cutoff25:200},
+    {name:"Deen Dayal Upadhyaya College",loc:"Delhi University, West Campus",cutoff24:185,cutoff25:190},
+    {name:"Maharaja Agrasen College",loc:"Delhi University, East Campus",cutoff24:180,cutoff25:185},
+  ],
+  "B.A. (Hons.) Political Science": [
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:233,cutoff25:236},
+    {name:"Lady Shri Ram College",loc:"Delhi University, South Campus",cutoff24:230,cutoff25:233},
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:225,cutoff25:228},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:222,cutoff25:225},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:218,cutoff25:220},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:210,cutoff25:214},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Khalsa College",loc:"Delhi University, North Campus",cutoff24:195,cutoff25:198},
+    {name:"Satyawati College",loc:"Delhi University, North Campus",cutoff24:185,cutoff25:190},
+    {name:"Deshbandhu College",loc:"Delhi University, South Campus",cutoff24:178,cutoff25:182},
+  ],
+  "B.A. (Hons.) Economics": [
+    {name:"Shri Ram College of Commerce",loc:"Delhi University, North Campus",cutoff24:240,cutoff25:242},
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:235,cutoff25:238},
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:232,cutoff25:235},
+    {name:"Lady Shri Ram College",loc:"Delhi University, South Campus",cutoff24:230,cutoff25:232},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:230},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:220,cutoff25:224},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:215,cutoff25:218},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:205,cutoff25:210},
+    {name:"Khalsa College",loc:"Delhi University, North Campus",cutoff24:198,cutoff25:202},
+    {name:"Satyawati College (Eve.)",loc:"Delhi University, North Campus",cutoff24:185,cutoff25:190},
+  ],
+  "B.Com. (Hons.)": [
+    {name:"Shri Ram College of Commerce",loc:"Delhi University, North Campus",cutoff24:242,cutoff25:244},
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:235,cutoff25:238},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:222,cutoff25:226},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:218,cutoff25:222},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:210,cutoff25:215},
+    {name:"Kalindi College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Mata Sundri College",loc:"Delhi University, North Campus",cutoff24:192,cutoff25:197},
+    {name:"Maharaja Agrasen College",loc:"Delhi University, East Campus",cutoff24:185,cutoff25:190},
+    {name:"Motilal Nehru College",loc:"Delhi University, South Campus",cutoff24:180,cutoff25:185},
+  ],
+  "B.Sc. (Hons.) Mathematics": [
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:238,cutoff25:240},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:232,cutoff25:235},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:235,cutoff25:238},
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:220,cutoff25:224},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:215,cutoff25:220},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:205,cutoff25:210},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:195,cutoff25:200},
+    {name:"Shaheed Bhagat Singh College",loc:"Delhi University, South Campus",cutoff24:188,cutoff25:195},
+    {name:"Rajdhani College",loc:"Delhi University, West Campus",cutoff24:180,cutoff25:185},
+  ],
+  "B.Sc. (Hons.) Physics": [
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:236,cutoff25:239},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:234,cutoff25:237},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:220,cutoff25:225},
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:215,cutoff25:220},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:210,cutoff25:215},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Daulat Ram College",loc:"Delhi University, North Campus",cutoff24:192,cutoff25:198},
+    {name:"Rajdhani College",loc:"Delhi University, West Campus",cutoff24:183,cutoff25:188},
+    {name:"Deen Dayal Upadhyaya College",loc:"Delhi University, West Campus",cutoff24:175,cutoff25:182},
+  ],
+  "B.Sc. (Hons.) Chemistry": [
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:230,cutoff25:234},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:225,cutoff25:229},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:220,cutoff25:225},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:212,cutoff25:217},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:195,cutoff25:200},
+    {name:"Swami Shraddhanand College",loc:"Delhi University, North Campus",cutoff24:182,cutoff25:188},
+    {name:"Rajdhani College",loc:"Delhi University, West Campus",cutoff24:175,cutoff25:180},
+    {name:"Bhim Rao Ambedkar College",loc:"Delhi University, East Campus",cutoff24:168,cutoff25:175},
+  ],
+  "B.A. (Hons.) History": [
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:222,cutoff25:226},
+    {name:"Lady Shri Ram College",loc:"Delhi University, South Campus",cutoff24:220,cutoff25:224},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:218,cutoff25:222},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:210,cutoff25:215},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:205,cutoff25:210},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:196,cutoff25:202},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:188,cutoff25:193},
+    {name:"Satyawati College",loc:"Delhi University, North Campus",cutoff24:178,cutoff25:184},
+    {name:"Sri Guru Gobind Singh College of Commerce",loc:"Delhi University, North Campus",cutoff24:170,cutoff25:175},
+  ],
+  "B.A. (Hons.) Psychology": [
+    {name:"Miranda House",loc:"Delhi University, North Campus",cutoff24:240,cutoff25:242},
+    {name:"Lady Shri Ram College",loc:"Delhi University, South Campus",cutoff24:237,cutoff25:240},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:228,cutoff25:232},
+    {name:"Jesus & Mary College",loc:"Delhi University, South Campus",cutoff24:225,cutoff25:228},
+    {name:"Kamala Nehru College",loc:"Delhi University, South Campus",cutoff24:220,cutoff25:224},
+    {name:"Indraprastha College for Women",loc:"Delhi University, North Campus",cutoff24:210,cutoff25:215},
+    {name:"Maitreyi College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Bharati College",loc:"Delhi University, West Campus",cutoff24:190,cutoff25:196},
+    {name:"Kalindi College",loc:"Delhi University, South Campus",cutoff24:182,cutoff25:187},
+    {name:"Shyama Prasad Mukherji College",loc:"Delhi University, South Campus",cutoff24:175,cutoff25:180},
+  ],
+  "B.A. Programme": [
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:195,cutoff25:200},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:190,cutoff25:195},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:188,cutoff25:193},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:182,cutoff25:188},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:175,cutoff25:180},
+    {name:"Deshbandhu College",loc:"Delhi University, South Campus",cutoff24:168,cutoff25:173},
+    {name:"Sri Aurobindo College",loc:"Delhi University, South Campus",cutoff24:162,cutoff25:168},
+    {name:"Satyawati College",loc:"Delhi University, North Campus",cutoff24:155,cutoff25:162},
+    {name:"Rajdhani College",loc:"Delhi University, West Campus",cutoff24:148,cutoff25:155},
+    {name:"Deen Dayal Upadhyaya College",loc:"Delhi University, West Campus",cutoff24:140,cutoff25:148},
+  ],
+  "B.Com.": [
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:218,cutoff25:222},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:214,cutoff25:218},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:208,cutoff25:213},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:200,cutoff25:205},
+    {name:"Kalindi College",loc:"Delhi University, South Campus",cutoff24:192,cutoff25:197},
+    {name:"Maharaja Agrasen College",loc:"Delhi University, East Campus",cutoff24:185,cutoff25:190},
+    {name:"Motilal Nehru College",loc:"Delhi University, South Campus",cutoff24:178,cutoff25:183},
+    {name:"Bhim Rao Ambedkar College",loc:"Delhi University, East Campus",cutoff24:170,cutoff25:176},
+    {name:"Satyawati College",loc:"Delhi University, North Campus",cutoff24:162,cutoff25:168},
+    {name:"Acharya Narendra Dev College",loc:"Delhi University, South Campus",cutoff24:155,cutoff25:162},
+  ],
+  "B.Sc. (Hons.) Computer Science": [
+    {name:"Hindu College",loc:"Delhi University, North Campus",cutoff24:240,cutoff25:243},
+    {name:"Hansraj College",loc:"Delhi University, North Campus",cutoff24:236,cutoff25:240},
+    {name:"St. Stephen's College",loc:"Delhi University, North Campus",cutoff24:238,cutoff25:241},
+    {name:"Ramjas College",loc:"Delhi University, North Campus",cutoff24:228,cutoff25:232},
+    {name:"Kirori Mal College",loc:"Delhi University, North Campus",cutoff24:222,cutoff25:226},
+    {name:"Gargi College",loc:"Delhi University, South Campus",cutoff24:215,cutoff25:220},
+    {name:"Dyal Singh College",loc:"Delhi University, South Campus",cutoff24:205,cutoff25:210},
+    {name:"Shaheed Bhagat Singh College",loc:"Delhi University, South Campus",cutoff24:198,cutoff25:204},
+    {name:"Maharaja Agrasen College",loc:"Delhi University, East Campus",cutoff24:190,cutoff25:196},
+    {name:"Rajdhani College",loc:"Delhi University, West Campus",cutoff24:182,cutoff25:188},
+  ],
+};
+
+let cfSelectedCourse = null;
+
+function initCollegeFinder() {
+  // Show section
+  document.getElementById('collegeFinder').classList.add('show');
+
+  // Build scores band from calculatedData
+  const band = document.getElementById('cfScoresBand');
+  band.innerHTML = '';
+  const subjScores = {};
+  Object.entries(calculatedData).forEach(([subj, arr]) => {
+    const sc = arr.reduce((s, x) => s + getMarks(x.result), 0);
+    const total = arr.length * 5; // max possible
+    subjScores[subj] = { score: sc, total: Math.min(total, 250) };
+  });
+
+  Object.entries(subjScores).forEach(([subj, {score, total}]) => {
+    const pct = total > 0 ? Math.max(0, Math.round((score / 250) * 100)) : 0;
+    const pctClass = pct >= 80 ? 'good' : pct >= 60 ? 'avg' : 'low';
+    const chip = document.createElement('div');
+    chip.className = 'cf-score-chip';
+    chip.style.setProperty('--pct', pct + '%');
+    chip.innerHTML = `<div class="cf-chip-subj">${esc(subj)}</div>
+      <div class="cf-chip-score">${score}<span> / 250</span></div>
+      <div class="cf-chip-pct ${pctClass}">${pct}% of max</div>`;
+    band.appendChild(chip);
+  });
+
+  // Build course buttons
+  const grid = document.getElementById('cfCourseGrid');
+  grid.innerHTML = '';
+  Object.keys(CF_DATA).forEach(course => {
+    const btn = document.createElement('button');
+    btn.className = 'cf-course-btn';
+    btn.textContent = course;
+    btn.onclick = () => selectCourse(course, btn);
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('cfResults').innerHTML = '<div class="cf-empty">👆 Select a course above to see matching colleges</div>';
+  document.getElementById('collegeFinder').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function selectCourse(course, btn) {
+  cfSelectedCourse = course;
+  document.querySelectorAll('.cf-course-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Get best subject score (highest score the student has)
+  let yourScore = 0;
+  Object.entries(calculatedData).forEach(([subj, arr]) => {
+    const sc = arr.reduce((s, x) => s + getMarks(x.result), 0);
+    if (sc > yourScore) yourScore = sc;
+  });
+
+  const colleges = CF_DATA[course] || [];
+  // Sort by cutoff25 descending (most competitive first)
+  const sorted = [...colleges].sort((a, b) => b.cutoff25 - a.cutoff25);
+
+  const resultsEl = document.getElementById('cfResults');
+  if (!sorted.length) {
+    resultsEl.innerHTML = '<div class="cf-empty">No data available for this course.</div>';
+    return;
+  }
+
+  const cards = sorted.map(c => {
+    const avg = Math.round((c.cutoff24 + c.cutoff25) / 2);
+    const margin = yourScore - c.cutoff25;
+    let chance, chanceLabel;
+    if (margin >= 10)        { chance = 'safe';     chanceLabel = '✓ Safe'; }
+    else if (margin >= -5)   { chance = 'moderate'; chanceLabel = '~ Moderate'; }
+    else                     { chance = 'reach';    chanceLabel = '✗ Reach'; }
+
+    return `<div class="cf-college-card ${chance}">
+      <div class="cf-college-top">
+        <div>
+          <div class="cf-college-name">${esc(c.name)}</div>
+          <div class="cf-college-loc">📍 ${esc(c.loc)}</div>
+        </div>
+        <div class="cf-chance-badge ${chance}">${chanceLabel}</div>
+      </div>
+      <div class="cf-cutoffs">
+        <div class="cf-co"><div class="cf-co-lbl">2024 Cutoff</div><div class="cf-co-val">${c.cutoff24}</div></div>
+        <div class="cf-co"><div class="cf-co-lbl">2025 Cutoff</div><div class="cf-co-val">${c.cutoff25}</div></div>
+        <div class="cf-co"><div class="cf-co-lbl">Your Score</div><div class="cf-co-val your">${yourScore}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  resultsEl.innerHTML = `
+    <div class="cf-results-head">
+      <div class="cf-results-title">${esc(course)}</div>
+      <div class="cf-legend">
+        <div class="cf-leg"><div class="cf-leg-dot" style="background:var(--success)"></div>Safe (+10)</div>
+        <div class="cf-leg"><div class="cf-leg-dot" style="background:var(--warning)"></div>Moderate (±5)</div>
+        <div class="cf-leg"><div class="cf-leg-dot" style="background:var(--danger)"></div>Reach (below)</div>
+      </div>
+    </div>
+    <div class="cf-college-list">${cards}</div>`;
+}
+
 </script>
 <script>
 (function(){
   const VERSION='2026061101';const KEY='pa_app_version';
-  function hardReload(){if('caches' in window){caches.keys().then(names=>names.forEach(n=>caches.delete(n)));}const url=new URL(location.href);url.searchParams.set('_v',VERSION);location.replace(url.toString());}
-  const urlVersion=new URL(location.href).searchParams.get('_v');
-  if(urlVersion===VERSION){sessionStorage.setItem(KEY,VERSION);const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('_v');history.replaceState(null,'',cleanUrl.toString());return;}
-  const stored=sessionStorage.getItem(KEY);if(stored!==VERSION){hardReload();}
+  // Guard: history API throws SecurityError in about:srcdoc / cross-origin iframes
+  const _canHistory=(()=>{try{return window.self===window.top&&location.protocol!=='about:';}catch(e){return false;}})();
+  function hardReload(){try{if('caches' in window){caches.keys().then(names=>names.forEach(n=>caches.delete(n)));}if(_canHistory){const url=new URL(location.href);url.searchParams.set('_v',VERSION);location.replace(url.toString());}}catch(e){}}
+  try{
+    const urlVersion=new URL(location.href).searchParams.get('_v');
+    if(urlVersion===VERSION){try{sessionStorage.setItem(KEY,VERSION);}catch(e){}if(_canHistory){try{const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('_v');history.replaceState(null,'',cleanUrl.toString());}catch(e){}}return;}
+    let stored='';try{stored=sessionStorage.getItem(KEY);}catch(e){}if(stored!==VERSION){hardReload();}
+  }catch(e){}
 })();
 </script>
 <script>
